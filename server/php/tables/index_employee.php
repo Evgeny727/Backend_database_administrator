@@ -32,20 +32,24 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM employee");
-                    while($row = mysqli_fetch_array($result)){
-                        $position = $conn->query("SELECT position FROM position WHERE position.id_position = $row[id_position]");
-                        $position_temp = mysqli_fetch_array($position);
-
+                    include("../models/position.php");
+                    include("../models/employee.php");
+                    include("../controllers/employeeDB.php");
+                    $employeeDB = new EmployeeDB();
+                    $employees = $employeeDB->getEmployee();
+                    foreach($employees as $employee){
+                        $id_employee = $employee->getId();
+                        $last_name = $employee->getLastName();
+                        $name = $employee->getName();
+                        $position = $employee->getPosition()->getPosition();
                         echo "<tr>
-                                <td>{$row['id_employee']}</td>
-                                <td>{$row['last_name']}</td>
-                                <td>{$row['name']}</td>
-                                <td>{$position_temp['position']}</td>
+                                <td>{$id_employee}</td>
+                                <td>{$last_name}</td>
+                                <td>{$name}</td>
+                                <td>{$position}</td>
                                 <td>
-                                    <a class='button' href='../update/update_employee.php?id={$row['id_employee']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_employee.php?id={$row['id_employee']}'>Удалить</a>
+                                    <a class='button' href='../update/update_employee.php?id={$id_employee}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_employee.php?id={$id_employee}'>Удалить</a>
                                 </td>
                             </tr>";
                     }

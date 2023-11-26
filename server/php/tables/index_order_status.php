@@ -30,15 +30,19 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM order_status");
-                    while($row = mysqli_fetch_array($result)){
+                    include("../models/order_status.php");
+                    include("../controllers/order_statusDB.php");
+                    $statusDB = new StatusDB();
+                    $statuses = $statusDB->getStatus();
+                    foreach($statuses as $status){
+                        $id_order_status = $status->getId();
+                        $status1 = $status->getStatus();
                         echo "<tr>
-                                <td>{$row['id_order_status']}</td>
-                                <td>{$row['status']}</td>
+                                <td>{$id_order_status}</td>
+                                <td>{$status1}</td>
                                 <td>
-                                    <a class='button' href='../update/update_order_status.php?id={$row['id_order_status']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_order_status.php?id={$row['id_order_status']}'>Удалить</a>
+                                    <a class='button' href='../update/update_order_status.php?id={$id_order_status}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_order_status.php?id={$id_order_status}'>Удалить</a>
                                 </td>
                             </tr>";
                     }

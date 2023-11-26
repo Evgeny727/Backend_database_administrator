@@ -35,20 +35,28 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM client");
-                    while($row = mysqli_fetch_array($result)){
+                    include("../controllers/clientDB.php");
+                    $clientDB = new ClientDB();
+                    $clients = $clientDB->getClient();
+                    foreach($clients as $client){
+                        $id_client = $client->getId();
+                        $email = $client->getEmail();
+                        $last_name = $client->getLastName();
+                        $name = $client->getName();
+                        $password = $client->getPassword();
+                        $birth_date = $client->getBirthDate();
+                        $account_number = $client->getAccountNumber();
                         echo "<tr>
-                                <td>{$row['id_client']}</td>
-                                <td>{$row['email']}</td>
-                                <td>{$row['last_name']}</td>
-                                <td>{$row['name']}</td>
-                                <td>{$row['password']}</td>
-                                <td>{$row['birth_date']}</td>
-                                <td>{$row['account_number']}</td>
+                                <td>{$id_client}</td>
+                                <td>{$email}</td>
+                                <td>{$last_name}</td>
+                                <td>{$name}</td>
+                                <td>{$password}</td>
+                                <td>{$birth_date}</td>
+                                <td>{$account_number}</td>
                                 <td>
-                                    <a class='button' href='../update/update_client.php?id={$row['id_client']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_client.php?id={$row['id_client']}'>Удалить</a>
+                                    <a class='button' href='../update/update_client.php?id={$id_client}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_client.php?id={$id_client}'>Удалить</a>
                                 </td>
                             </tr>";
                     }

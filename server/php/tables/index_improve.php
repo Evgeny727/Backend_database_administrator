@@ -31,24 +31,23 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM necessary_improvement");
-                    while($row = mysqli_fetch_array($result)){
-                        $type = $conn->query("SELECT pc_part_type FROM component_type WHERE component_type.id_component_type = $row[id_component_type]");
-                        $type_temp = mysqli_fetch_array($type);
-
-                        $client = $conn->query("SELECT name, last_name FROM client WHERE client.id_client = $row[id_client]");
-                        $client_temp = mysqli_fetch_array($client);
-                        $space=' ';
-                        $client_fio = $client_temp['last_name'].$space.$client_temp['name'];
-
+                    include("../models/component_type.php");
+                    include("../models/client.php");
+                    include("../models/improve.php");
+                    include("../controllers/improveDB.php");
+                    $improveDB = new ImproveDB();
+                    $improves = $improveDB->getImprove();
+                    foreach($improves as $improve){
+                        $id_necessary_improvement = $improve->getId();
+                        $type = $improve->getType()->getType();
+                        $client_fio = $improve->getClient()->getFIO();
                         echo "<tr>
-                                <td>{$row['id_necessary_improvement']}</td>
-                                <td>{$type_temp['pc_part_type']}</td>
+                                <td>{$id_necessary_improvement}</td>
+                                <td>{$type}</td>
                                 <td>{$client_fio}</td>
                                 <td>
-                                    <a class='button' href='../update/update_improve.php?id={$row['id_necessary_improvement']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_improve.php?id={$row['id_necessary_improvement']}'>Удалить</a>
+                                    <a class='button' href='../update/update_improve.php?id={$id_necessary_improvement}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_improve.php?id={$id_necessary_improvement}'>Удалить</a>
                                 </td>
                             </tr>";
                     }

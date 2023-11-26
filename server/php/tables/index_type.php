@@ -30,15 +30,19 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM component_type");
-                    while($row = mysqli_fetch_array($result)){
+                    include("../models/component_type.php");
+                    include("../controllers/component_typeDB.php");
+                    $typeDB = new Component_typeDB();
+                    $types = $typeDB->getComponent_type();
+                    foreach($types as $type){
+                        $id_type = $type->getId();
+                        $type1 = $type->getType();
                         echo "<tr>
-                                <td>{$row['id_component_type']}</td>
-                                <td>{$row['pc_part_type']}</td>
+                                <td>{$id_type}</td>
+                                <td>{$type1}</td>
                                 <td>
-                                    <a class='button' href='../update/update_type.php?id={$row['id_component_type']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_type.php?id={$row['id_component_type']}'>Удалить</a>
+                                    <a class='button' href='../update/update_type.php?id={$id_type}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_type.php?id={$id_type}'>Удалить</a>
                                 </td>
                             </tr>";
                     }

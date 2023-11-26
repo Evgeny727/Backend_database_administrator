@@ -31,16 +31,21 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM warranty_certificate");
-                    while($row = mysqli_fetch_array($result)){
+                    include("../models/warranty.php");
+                    include("../controllers/warrantyDB.php");
+                    $warrantyDB = new WarrantyDB();
+                    $warrantys = $warrantyDB->getWarranty();
+                    foreach($warrantys as $warranty){
+                        $id_warranty = $warranty->getId();
+                        $id_order = $warranty->getIdOrder();
+                        $valid_until = $warranty->getValidUntil();
                         echo "<tr>
-                                <td>{$row['id_warranty_certificate']}</td>
-                                <td>{$row['id_order']}</td>
-                                <td>{$row['valid_until']}</td>
+                                <td>{$id_warranty}</td>
+                                <td>{$id_order}</td>
+                                <td>{$valid_until}</td>
                                 <td>
-                                    <a class='button' href='../update/update_warranty.php?id={$row['id_warranty_certificate']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_warranty.php?id={$row['id_warranty_certificate']}'>Удалить</a>
+                                    <a class='button' href='../update/update_warranty.php?id={$id_warranty}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_warranty.php?id={$id_warranty}'>Удалить</a>
                                 </td>
                             </tr>";
                     }

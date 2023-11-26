@@ -33,21 +33,26 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM stock");
-                    while($row = mysqli_fetch_array($result)){
-                        $type = $conn->query("SELECT pc_part_type FROM component_type WHERE component_type.id_component_type = $row[id_component_type]");
-                        $type_temp = mysqli_fetch_array($type);
-
+                    include("../models/component_type.php");
+                    include("../models/stock.php");
+                    include("../controllers/stockDB.php");
+                    $stockDB = new StockDB();
+                    $stocks = $stockDB->getStock();
+                    foreach($stocks as $stock){
+                        $id_stock = $stock->getId();
+                        $name = $stock->getName();
+                        $quantity_avaible = $stock->getQuantity();
+                        $price = $stock->getPrice();
+                        $type = $stock->getType()->getType();
                         echo "<tr>
-                                <td>{$row['id_stock']}</td>
-                                <td>{$row['name']}</td>
-                                <td>{$row['quantity_avaible']}</td>
-                                <td>{$row['price']}</td>
-                                <td>{$type_temp['pc_part_type']}</td>
+                                <td>{$id_stock}</td>
+                                <td>{$name}</td>
+                                <td>{$quantity_avaible}</td>
+                                <td>{$price}</td>
+                                <td>{$type}</td>
                                 <td>
-                                    <a class='button' href='../update/update_stock.php?id={$row['id_stock']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_stock.php?id={$row['id_stock']}'>Удалить</a>
+                                    <a class='button' href='../update/update_stock.php?id={$id_stock}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_stock.php?id={$id_stock}'>Удалить</a>
                                 </td>
                             </tr>";
                     }

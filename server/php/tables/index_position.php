@@ -30,15 +30,19 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM position");
-                    while($row = mysqli_fetch_array($result)){
+                    include("../models/position.php");
+                    include("../controllers/positionDB.php");
+                    $positionDB = new PositionDB();
+                    $positions = $positionDB->getPosition();
+                    foreach($positions as $position){
+                        $id_position = $position->getId();
+                        $position1 = $position->getPosition();
                         echo "<tr>
-                                <td>{$row['id_position']}</td>
-                                <td>{$row['position']}</td>
+                                <td>{$id_position}</td>
+                                <td>{$position1}</td>
                                 <td>
-                                    <a class='button' href='../update/update_position.php?id={$row['id_position']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_position.php?id={$row['id_position']}'>Удалить</a>
+                                    <a class='button' href='../update/update_position.php?id={$id_position}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_position.php?id={$id_position}'>Удалить</a>
                                 </td>
                             </tr>";
                     }

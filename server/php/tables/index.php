@@ -33,30 +33,28 @@
             </thead>
             <tbody>
                 <?php
-                    include("../config.php");
-                    $result = mysqli_query($conn, "SELECT * FROM orders");
-                    while($row = mysqli_fetch_array($result)){
-                        $client = $conn->query("SELECT name, last_name FROM client WHERE client.id_client = $row[id_client]");
-                        $client_temp = mysqli_fetch_array($client);
-                        $space=' ';
-                        $client_fio = $client_temp['last_name'].$space.$client_temp['name'];
-
-                        $employee = $conn->query("SELECT name, last_name FROM employee WHERE employee.id_employee = $row[id_employee]");
-                        $employee_temp = mysqli_fetch_array($employee);
-                        $employee_fio = $employee_temp['last_name'].$space.$employee_temp['name'];
-
-                        $order_status = $conn->query("SELECT status FROM order_status WHERE order_status.id_order_status = $row[id_order_status]");
-                        $order_status_temp = mysqli_fetch_array($order_status);
-
+                    include("../models/client.php");
+                    include("../models/employee.php");
+                    include("../models/order_status.php");
+                    include("../models/order.php");
+                    include("../controllers/orderDB.php");
+                    $orderDB = new OrderDB();
+                    $orders = $orderDB->getOrder();
+                    foreach($orders as $order){
+                        $id_order = $order->getId();
+                        $client_fio = $order->getClient()->getFIO();
+                        $employee_fio = $order->getEmployee()->getFIO();
+                        $order_status = $order->getStatus()->getStatus();
+                        $total_price = $order->getPrice();
                         echo "<tr>
-                                <td>{$row['id_order']}</td>
+                                <td>{$id_order}</td>
                                 <td>{$client_fio}</td>
                                 <td>{$employee_fio}</td>
-                                <td>{$order_status_temp['status']}</td>
-                                <td>{$row['total_price']}</td>
+                                <td>{$order_status}</td>
+                                <td>{$total_price}</td>
                                 <td>
-                                    <a class='button' href='../update/update_order.php?id={$row['id_order']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_order.php?id={$row['id_order']}'>Удалить</a>
+                                    <a class='button' href='../update/update_order.php?id={$id_order}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_order.php?id={$id_order}'>Удалить</a>
                                 </td>
                             </tr>";
                     }
