@@ -39,8 +39,8 @@
                                 <td>{$row['id_order']}</td>
                                 <td>{$row['valid_until']}</td>
                                 <td>
-                                    <a class='button' href='../update/update_order.php?id={$row['id_warranty_certificate']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_order.php?id={$row['id_warranty_certificate']}'>Удалить</a>
+                                    <a class='button' href='../update/update_warranty.php?id={$row['id_warranty_certificate']}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_warranty.php?id={$row['id_warranty_certificate']}'>Удалить</a>
                                 </td>
                             </tr>";
                     }
@@ -48,6 +48,6 @@
             </tbody>
         </table>
     </div>
-    <a class='button' href="../create/add_order.php">Добавить сертификат</a>
+    <a class='button' href="../create/add_warranty.php">Добавить сертификат</a>
 </body>
 </html>

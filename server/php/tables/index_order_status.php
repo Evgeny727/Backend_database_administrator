@@ -37,8 +37,8 @@
                                 <td>{$row['id_order_status']}</td>
                                 <td>{$row['status']}</td>
                                 <td>
-                                    <a class='button' href='../update/update_order.php?id={$row['id_order_status']}'>Изменить</a>
-                                    <a class='button' href='../delete/delete_order.php?id={$row['id_order_status']}'>Удалить</a>
+                                    <a class='button' href='../update/update_order_status.php?id={$row['id_order_status']}'>Изменить</a>
+                                    <a class='button' href='../delete/delete_order_status.php?id={$row['id_order_status']}'>Удалить</a>
                                 </td>
                             </tr>";
                     }
@@ -46,6 +46,6 @@
             </tbody>
         </table>
     </div>
-    <a class='button' href="../create/add_order.php">Добавить статус</a>
+    <a class='button' href="../create/add_order_status.php">Добавить статус</a>
 </body>
 </html>

@@ -38,6 +38,11 @@ class Employee
         return $this->position;
     }
 
+    public function getFIO()
+    {
+        return $this->getLastName()." ".$this->getName();
+    }
+
     public function setId($id)
     {
         $this->id = $id;
@@ -56,6 +61,12 @@ class Employee
     public function setPosition($position)
     {
         $this->position = $position;
+    }
+
+    public function setFIO($last_name, $name)
+    {
+        $this->setLastName($last_name);
+        $this->setName($name);
     }
 }
 

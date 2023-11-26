@@ -61,7 +61,7 @@ class Client
 
     public function getFIO()
     {
-        return $this->last_name." ".$this->name;
+        return $this->getLastName()." ".$this->getName();
     }
 
     public function setId($id)

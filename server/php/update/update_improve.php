@@ -59,18 +59,18 @@
             }
         }
         elseif(isset($_POST['id']) && isset($_POST['id_type']) && isset($_POST['id_client'])){
-        $id = $_POST['id'];
-        $id_type = $_POST['id_type'];
-        $id_client = $_POST['id_client'];
-        $type = new Component_typeDB();
-        $type1 = $type->getComponent_typeByID($id_type);
-        $client = new ClientDB();
-        $client1 = $client->getClientByID($id_client);
-        $obj = new Improve($id, $type1, $client1);
-        $db = new ImproveDB();
-        $result = $db->updateImprove($obj);
-        echo "Данные успешно изменёны. ";
-        echo "<a href='../tables/index_improve.php'>Назад к таблице</a>";
+            $id = $_POST['id'];
+            $id_type = $_POST['id_type'];
+            $id_client = $_POST['id_client'];
+            $type = new Component_typeDB();
+            $type1 = $type->getComponent_typeByID($id_type);
+            $client = new ClientDB();
+            $client1 = $client->getClientByID($id_client);
+            $obj = new Improve($id, $type1, $client1);
+            $db = new ImproveDB();
+            $result = $db->updateImprove($obj);
+            echo "Данные успешно изменёны. ";
+            echo "<a href='../tables/index_improve.php'>Назад к таблице</a>";
         }
     ?>
     </div>
