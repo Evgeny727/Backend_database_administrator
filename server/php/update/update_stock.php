@@ -48,18 +48,18 @@
             }
         }
         elseif(isset($_POST['id']) && isset($_POST['name']) && isset($_POST['quantity']) && isset($_POST['price']) && isset($_POST['id_type'])){
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $quantity_avaible = $_POST['quantity'];
-        $price = $_POST['price'];
-        $id_type = $_POST['id_type'];
-        $type = new Component_typeDB();
-        $type1 = $type->getComponent_typeByID($id_type);
-        $obj = new Stock($id, $name, $quantity_avaible, $price, $type1);
-        $db = new StockDB();
-        $result = $db->updateStock($obj);
-        echo "Товар успешно изменён. ";
-        echo "<a href='../tables/index_stock.php'>Назад к таблице</a>";
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $quantity_avaible = $_POST['quantity'];
+            $price = $_POST['price'];
+            $id_type = $_POST['id_type'];
+            $type = new Component_typeDB();
+            $type1 = $type->getComponent_typeByID($id_type);
+            $obj = new Stock($id, $name, $quantity_avaible, $price, $type1);
+            $db = new StockDB();
+            $result = $db->updateStock($obj);
+            echo "Товар успешно изменён. ";
+            echo "<a href='../tables/index_stock.php'>Назад к таблице</a>";
         }
     ?>
     </div>
