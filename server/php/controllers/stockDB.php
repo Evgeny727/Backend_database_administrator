@@ -1,6 +1,6 @@
 <?php
 
-    include_once "../db.php";
+    include_once "db.php";
     include_once "../models/stock.php";
     include_once "../models/component_type.php";
     include_once "../controllers/component_typeDB.php";

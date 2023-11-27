@@ -1,6 +1,6 @@
 <?php
 
-    include_once "../db.php";
+    include_once "db.php";
     include_once "../models/component_type.php";
 
     class Component_typeDB extends Database{
